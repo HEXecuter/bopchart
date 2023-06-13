@@ -1,10 +1,10 @@
-type playlistItem = {
+type PlaylistItem = {
     collaborative: boolean,
     description: string,
     external_urls: { spotify: string },
     href: string,
     id: string,
-    images: spotifyImage[],
+    images: SpotifyImage[],
     name: string,
     public: boolean
     snapshot_id: string,
@@ -13,7 +13,7 @@ type playlistItem = {
     uri: string
 }
 
-type spotifyImage = {
+type SpotifyImage = {
     url: string,
     height: number,
     width: number,
