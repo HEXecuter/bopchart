@@ -9,7 +9,7 @@ type PlaylistItem = {
     owner: SpotifyOwner
     public: boolean
     snapshot_id: string,
-    tracks: {href: string, total: number}[],
+    tracks: { href: string, total: number }[],
     type: "playlist",
     uri: string
 }
@@ -25,7 +25,7 @@ type PlaylistTrackItem = {
 
 type Track = {
     album: Album,
-    artists: Artist,
+    artists: Artist[],
     available_markets: string[],
     disc_number: number,
     duration_ms: number,
@@ -62,6 +62,13 @@ type Album = {
     total_tracks: number,
     type: "album",
     uri: string
+}
+
+type FullArtist = Artist & {
+    followers: { href: string, total: number },
+    genres: string[],
+    images: SpotifyImage[]
+    popularity: number
 }
 
 type Artist = {

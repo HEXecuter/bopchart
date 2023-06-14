@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 function TestAPI(){
     const [data, setData] = useState("Wait");
     const getData = () => {
-        axios.get('/api/genres/playlist')
+        axios.get('/api/genres/artists')
             .then((response) => {
                 setData(JSON.stringify(response.data))
             })

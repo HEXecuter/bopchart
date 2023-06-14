@@ -5,6 +5,7 @@ const BASIC_TOKEN = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
 const CURRENT_PLAYLIST_ENDPOINT = 'https://api.spotify.com/v1/me/playlists'
 const BULK_ALBUM_ENDPOINT = 'https://api.spotify.com/v1/albums'
+const BULK_ARTIST_ENDPOINT = 'https://api.spotify.com/v1/artists'
 
 export async function getAccessToken(accessToken: string) {
     const data = {
@@ -65,13 +66,24 @@ export async function getAllTracksInPlaylist(playlistId: string, bearerToken: st
     return tracks_list;
 }
 
-export function getUniqueAlbumsFromTracks(trackList: PlaylistTrackItem[]) {
-    const albumIds = new Set();
+export function getUniqueAlbumsFromTracks(trackList: PlaylistTrackItem[]): string[] {
+    const albumIds = new Set<string>();
     for (const track of trackList) {
         albumIds.add(track.track.album.id)
     }
 
     return [...albumIds];
+}
+
+export function getUniqueArtistsFromTracks(trackList: PlaylistTrackItem[]): string[] {
+    const artistIds = new Set<string>();
+    for (const track of trackList) {
+        for (const artist of track.track.artists) {
+            artistIds.add(artist.id)
+        }
+    }
+
+    return [...artistIds];
 }
 
 export async function getBulkAlbums(albumList: string[], bearerToken: string) {
@@ -93,4 +105,26 @@ export async function getBulkAlbums(albumList: string[], bearerToken: string) {
     }
 
     return albums;
+}
+
+export async function getBulkArtist(artistList: string[], bearerToken: string) {
+    const headers = { Authorization: `Bearer ${bearerToken}` }
+    let currentBatch = []
+    const artists = new Map<string, FullArtist>()
+
+    for (const id of artistList) {
+        currentBatch.push(id);
+        console.log('CurrentBatch\n', currentBatch)
+        if (currentBatch.length === 50 || id == artistList.at(-1)) {
+            const response = await axios.get(BULK_ARTIST_ENDPOINT, { headers, params: { ids: currentBatch.join(',') } })
+            currentBatch = []
+            response.data.artists.forEach((artist: FullArtist) => {
+                if (artist) {
+                    artists.set(artist.id, artist)
+                }
+            })
+        }
+    }
+
+    return artists;
 }
