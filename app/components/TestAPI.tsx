@@ -8,7 +8,6 @@ function TestAPI(){
     const getData = () => {
         axios.get('/api/genres/playlist')
             .then((response) => {
-                console.log('setting data')
                 setData(JSON.stringify(response.data))
             })
             .catch((err) => console.log(err))

@@ -13,7 +13,6 @@ import TestAPI from './components/TestAPI';
 
 export default async function Home() {
   const userSession = await getServerSession(authOptions);
-  // console.log("^^^^\n", userSession)
 
   if (userSession) {
     return (

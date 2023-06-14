@@ -84,7 +84,11 @@ export async function getBulkAlbums(albumList: string[], bearerToken: string) {
         if (currentBatch.length == 20 || id == albumList.at(-1)) {
             const response = await axios.get(BULK_ALBUM_ENDPOINT, { headers, params: { ids: currentBatch.join(',') } })
             currentBatch = []
-            response.data.albums.forEach((album: FullAlbum) => albums.set(album.id, album))
+            response.data.albums.forEach((album: FullAlbum) => {
+                if (album) {
+                    albums.set(album.id, album)
+                }
+            })
         }
     }
 
