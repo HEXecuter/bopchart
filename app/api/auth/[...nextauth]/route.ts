@@ -1,3 +1,4 @@
+import { getAccessToken } from "@/app/lib/spotify";
 import NextAuth, { AuthOptions } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 
@@ -13,8 +14,8 @@ export const authOptions: AuthOptions = {
         async jwt({ token, account }) {
             if (account) {
                 token.refreshToken = account.refresh_token;
-                token.accessToken = account.access_token;
-                // console.log("%%%\n", account)
+                token.accessToken = await getAccessToken(account.refresh_token);
+                console.log("%%%\n", account)
             }
             return token
         },
@@ -22,7 +23,7 @@ export const authOptions: AuthOptions = {
             session.user.refreshToken = token.refreshToken;
             session.user.accessToken = token.accessToken;
             session.user.id = token.sub;
-            // console.log("$$$\n", token)
+            console.log("$$$\n", token)
             return session;
         }
     },

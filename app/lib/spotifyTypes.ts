@@ -14,7 +14,7 @@ type PlaylistItem = {
     uri: string
 }
 
-type TrackItem = {
+type PlaylistTrackItem = {
     added_at: string,
     added_by: Omit<SpotifyOwner, 'display_name'>,
     is_local: boolean,
@@ -41,6 +41,14 @@ type Track = {
     track_number: number,
     type: "track"
 }
+
+
+type FullAlbum = Album & {
+    genres: string[],
+    label: string,
+    popularity: number,
+}
+
 
 type Album = {
     album_type: "album",
