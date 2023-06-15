@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html className={`${playfair.className} bg-gradient-to-tl from-[#eb7f7b] to-[#3023ae] h-full text-white`} lang="en">
-      <body className='mt-16 '>
+      <body className='mt-16 h-full'>
         <NavBar />
         {children}  
       </body>

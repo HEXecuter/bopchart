@@ -6,11 +6,11 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = () => {
     return (
-        <nav className="fixed top-0 z-10 w-full h-16 flex items-center justify-center bg-white bg-opacity-40">
+        <nav className="fixed top-0 z-10 w-full h-16 flex items-center justify-center bg-white bg-opacity-30">
             <div className="flex flex-row justify-between mx-8 w-full">
-                <span className="text-center text-3xl font-semibold uppercase">
+                <Link className="text-center text-3xl font-semibold uppercase cursor-pointer" href="/">
                     Chartify
-                </span>
+                </Link>
                 <div className="flex items-center justify-center gap-6">
                     <Link href="/">
                         Home
