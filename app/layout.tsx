@@ -1,7 +1,8 @@
+import NavBar from './components/navbar/NavBar'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Playfair_Display } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const playfair = Playfair_Display({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Chartify',
@@ -14,8 +15,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html className={playfair.className} lang="en">
+      <NavBar />
+      <body className='mt-16'>
         {children}  
       </body>
     </html>

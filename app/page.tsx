@@ -1,15 +1,12 @@
-import Image from 'next/image'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth'
 import SessionButton from './components/SessionButton';
-import { getAccessToken, getCurrentUserPlaylist } from './lib/spotify';
 import Title from './components/Title';
 import OptionCard from './components/OptionCard';
 import { BiMedal, BiCategoryAlt, BiListOl } from 'react-icons/bi';
 import { TbMoodAnnoyed2 } from 'react-icons/tb'
-import { useEffect } from 'react';
-import axios from 'axios';
 import TestAPI from './components/TestAPI';
+
 
 export default async function Home() {
   const userSession = await getServerSession(authOptions);
@@ -17,8 +14,8 @@ export default async function Home() {
   if (userSession) {
     return (
       <main>
-        <div className='lg:w-1/2 flex-col mx-auto'>
-          <Title text='Chartify' />
+        <div className='lg:w-2/3 flex-col mx-auto'>
+          <Title text='Welcome to Chartify' />
           <p className='text-center text-xl'>
             {`Welcome ${userSession.user?.name}, select an option below to get started!`}
           </p>
