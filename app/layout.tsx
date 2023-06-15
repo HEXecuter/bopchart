@@ -16,8 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html className={playfair.className} lang="en">
-      <NavBar />
       <body className='mt-16'>
+        <NavBar />
         {children}  
       </body>
     </html>
