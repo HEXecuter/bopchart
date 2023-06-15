@@ -75,13 +75,15 @@ export function getUniqueAlbumsFromTracks(trackList: PlaylistTrackItem[]): strin
     return [...albumIds];
 }
 
-export function getUniqueArtistsFromTracks(trackList: PlaylistTrackItem[]): string[] {
+export function getUniqueArtistsFromTracks(trackMap: Map<any, PlaylistTrackItem[]>): string[] {
     const artistIds = new Set<string>();
-    for (const track of trackList) {
-        for (const artist of track.track.artists) {
-            artistIds.add(artist.id)
-        }
-    }
+    trackMap.forEach((value, key) => {
+        value.forEach((track) => {
+            track.track.artists.forEach((artist) => {
+                artistIds.add(artist.id)
+            })
+        })
+    })
 
     return [...artistIds];
 }

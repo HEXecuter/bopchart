@@ -14,13 +14,11 @@ export const authOptions: AuthOptions = {
         async jwt({ token, account }) {
             if (account) {
                 token.refreshToken = account.refresh_token;
-                token.accessToken = await getAccessToken(account.refresh_token);
             }
             return token
         },
         async session({ session, user, token }) {
             session.user.refreshToken = token.refreshToken;
-            session.user.accessToken = token.accessToken;
             session.user.id = token.sub;
             return session;
         }
