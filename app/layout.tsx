@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className={`${playfair.className} bg-gradient-to-tl from-[#eb7f7b] to-[#3023ae] h-full text-white`} lang="en">
-      <body className='mt-16 h-full'>
+    <html className={`${playfair.className} bg-no-repeat bg-cover bg-gradient-to-tl from-[#eb7f7b] to-[#3023ae] text-white min-h-full`} lang="en">
+      <body className='h-full'>
         <NavBar />
         {children}  
       </body>

@@ -16,9 +16,13 @@
   }
 }
 
-/* * {
+* {
   border: 1px solid red;
-} */
+}
+
+* {
+  box-sizing: border-box;
+}
 
 /* body {
   color: rgb(var(--foreground-rgb));

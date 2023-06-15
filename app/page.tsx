@@ -10,38 +10,27 @@ import TestAPI from './components/TestAPI';
 
 export default async function Home() {
   const userSession = await getServerSession(authOptions);
-
-  if (userSession) {
-    return (
-      <main className='h-full flex flex-col items-center justify-center'>
-        <div className='flex-col flex lg:flex-row justify-center gap-8'>
-          <div className='flex flex-col gap-6 items-center justify-center'>
-            <Title text='Welcome to Chartify' />
-            <p className='text-lg'>Select an option to the right to learn more about your Spotify usage!</p>
-            <SessionButton session={userSession} />
-          </div>
-          <div className='grid grid-cols-1 lg:grid-cols-3 grid-flow-row gap-6'>
-            <OptionCard icon={BiMedal} name="How Basic is my Music Taste?" />
-            <OptionCard icon={BiCategoryAlt} name="What Genres do I Listen to?" />
-            <OptionCard icon={BiListOl} name="What are my top items?" />
-            <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
-            <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
-            <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
-          </div>
-        </div>
-      </main>
-    )
-  } else {
-    return (
-      <main>
-        <div className='w-1/2 flex-col mx-auto'>
+  const welcomeText = userSession ? 'Select an option to learn more about your spotify usage!' : 'Log in to learn more about your spotify usage!';
+  return (
+    <main className='flex flex-col items-center justify-center min-h-[90vh]'>
+      <div className='flex-col flex md:flex-row justify-center gap-8 '>
+        <div className='flex flex-col gap-6 items-center justify-center'>
           <Title text='Welcome to Chartify' />
-          <p className='text-center text-xl '>
-            Log in with your Spotify account to get started!
-          </p>
+          <p className='text-lg text-center'>{welcomeText}</p>
           <SessionButton session={userSession} />
         </div>
-      </main>
-    )
-  }
+        <div className={
+          `grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-row justify-items-center gap-6 h-fit
+          ${userSession ? '' : 'pointer-events-none'}`
+        }>
+          <OptionCard icon={BiMedal} name="How Basic is my Music Taste?" />
+          <OptionCard icon={BiCategoryAlt} name="What Genres do I Listen to?" />
+          <OptionCard icon={BiListOl} name="What are my top items?" />
+          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
+          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
+          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
+        </div>
+      </div>
+    </main>
+  )
 }
