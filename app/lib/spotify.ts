@@ -116,7 +116,6 @@ export async function getBulkArtist(artistList: string[], bearerToken: string) {
 
     for (const id of artistList) {
         currentBatch.push(id);
-        console.log('CurrentBatch\n', currentBatch)
         if (currentBatch.length === 50 || id == artistList.at(-1)) {
             const response = await axios.get(BULK_ARTIST_ENDPOINT, { headers, params: { ids: currentBatch.join(',') } })
             currentBatch = []
