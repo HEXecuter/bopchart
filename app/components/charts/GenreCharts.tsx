@@ -1,17 +1,20 @@
 'use client'
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip, Legend } from 'chart.js'
+import autocolors from 'chartjs-plugin-autocolors'
+import ChartDeferred from 'chartjs-plugin-deferred';
+import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip, Legend, Title } from 'chart.js'
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend)
+ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend, autocolors, ChartDeferred, Title)
+ChartJS.defaults.font.size = 32
 
 interface GenreChartsProps {
 
 }
 
 const GenreCharts: React.FC<GenreChartsProps> = () => {
-    const [responseData, setResponseData] = useState<[{playlist: {id: string, name: string}, genres: {genre:string, duration: number}[]}]>();
+    const [responseData, setResponseData] = useState<[{ playlist: { id: string, name: string }, genres: { genre: string, duration: number }[] }]>();
     useEffect(() => {
         console.log('data is being fetched')
         axios.get('/api/genres/artists')
@@ -23,17 +26,30 @@ const GenreCharts: React.FC<GenreChartsProps> = () => {
 
     if (responseData) {
         return (
-            <div>
+            <div className="flex flex-wrap justify-center items-center gap-4 my-16">
                 {responseData.map((entry, index) => {
                     const data = {
-                        datasets:[{
+                        datasets: [{
                             data: entry.genres.filter((genreEntry, index) => index < 10).map((genreEntry) => genreEntry.duration)
                         }],
                         labels: entry.genres.filter((genreEntry, index) => index < 10).map((genreEntry) => genreEntry.genre)
                     }
-                    console.log(data)
+
+                    const options = {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: entry.playlist.name
+                            },
+                            autocolors: {
+                                mode: 'data'
+                            }
+                        }
+                    }
                     return (
-                        <Doughnut data={data} key={entry.playlist.id}/>
+                        <div key={entry.playlist.id} className="bg-[rgba(255,255,255,0.6)] min-h-[900px] min-w-[900px]">
+                            <Doughnut data={data} options={options}/>
+                        </div>
                     )
                 })}
             </div>
