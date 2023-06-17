@@ -5,6 +5,7 @@ import ChartDeferred from 'chartjs-plugin-deferred';
 import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip, Legend, Title } from 'chart.js'
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend, autocolors, ChartDeferred, Title)
 ChartJS.defaults.font.size = 32
@@ -55,8 +56,8 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
         )
     } else {
         return (
-            <div>
-                Data is Loading, please wait
+            <div className="flex justify-center items-center gap-4 mt-32">
+                <ScaleLoader height={200} width={8} margin={16} color="white"/>
             </div>
         )
     }
