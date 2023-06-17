@@ -3,8 +3,9 @@ import { getServerSession } from 'next-auth'
 import SessionButton from './components/SessionButton';
 import Title from './components/Title';
 import OptionCard from './components/OptionCard';
-import { BiMedal, BiCategoryAlt, BiListOl } from 'react-icons/bi';
+import { BiMedal, BiCategoryAlt, BiListOl, BiMusic } from 'react-icons/bi';
 import { TbMoodAnnoyed2 } from 'react-icons/tb'
+import { IoMdSpeedometer } from 'react-icons/io'
 import TestAPI from './components/TestAPI';
 
 
@@ -23,12 +24,12 @@ export default async function Home() {
           `grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-row justify-items-center gap-6 h-fit
           ${userSession ? '' : 'pointer-events-none'}`
         }>
-          <OptionCard icon={BiMedal} name="How Basic is my Music Taste?" />
-          <OptionCard icon={BiCategoryAlt} name="What Genres do I Listen to?" />
-          <OptionCard icon={BiListOl} name="What are my top items?" />
-          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
-          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
-          <OptionCard icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
+          <OptionCard href='/genres' implemented icon={BiCategoryAlt} name="What genres do I listen to?" />
+          <OptionCard href='/basicness' icon={BiMedal} name="How basic is my music taste?" />
+          <OptionCard href='/top' icon={BiListOl} name="What are my top items?" />
+          <OptionCard href='/dance' icon={BiMusic} name="Danceability of my playlist" />
+          <OptionCard href='/tempo' icon={IoMdSpeedometer} name="Analyze the tempo of my playlist" />
+          <OptionCard href='/mood' icon={TbMoodAnnoyed2} name="Analyze the mood of my playlist" />
         </div>
       </div>
     </main>
