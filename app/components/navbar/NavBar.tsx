@@ -12,14 +12,14 @@ const NavBar: React.FC<NavBarProps> = () => {
                     Chartify
                 </Link>
                 <div className="flex items-center justify-center gap-6">
-                    <Link href="/">
+                    {/* <Link href="/" className="hover:underline">
                         Home
+                    </Link> */}
+                    <Link href="/" className="cursor-not-allowed hover:underline">
+                        About
                     </Link>
-                    <Link href="/">
-                        Home
-                    </Link>
-                    <Link href="/">
-                        Home
+                    <Link href="/" className="hover:underline">
+                        GitHub
                     </Link>
                 </div>
             </div>

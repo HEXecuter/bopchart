@@ -6,7 +6,6 @@ import OptionCard from './components/OptionCard';
 import { BiMedal, BiCategoryAlt, BiListOl, BiMusic } from 'react-icons/bi';
 import { TbMoodAnnoyed2 } from 'react-icons/tb'
 import { IoMdSpeedometer } from 'react-icons/io'
-import TestAPI from './components/TestAPI';
 
 
 export default async function Home() {
