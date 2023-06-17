@@ -12,7 +12,6 @@ interface PlaylistSelectorProps {
 
 const PlaylistSelector: React.FC<PlaylistSelectorProps> = async ({ userSession, baseUrlPath }) => {
     const accessToken = await getAccessToken(userSession.user!.refreshToken)
-    console.log("refresh=====")
     const playlistList = await getCurrentUserPlaylist(accessToken);
 
     return (

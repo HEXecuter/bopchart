@@ -4,6 +4,7 @@ import axios from "axios";
 const BASIC_TOKEN = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
 const CURRENT_PLAYLIST_ENDPOINT = 'https://api.spotify.com/v1/me/playlists'
+const PLAYLIST_ENDPOINT = 'https://api.spotify.com/v1/playlists'
 const BULK_ALBUM_ENDPOINT = 'https://api.spotify.com/v1/albums'
 const BULK_ARTIST_ENDPOINT = 'https://api.spotify.com/v1/artists'
 
@@ -47,6 +48,12 @@ export async function getCurrentUserPlaylist(bearerToken: string) {
     }
 
     return playlist_list
+}
+
+export async function getPlaylist(playlistId: string, bearerToken: string) {
+    const headers = { Authorization: `Bearer ${bearerToken}` }
+    const response = await axios.get(PLAYLIST_ENDPOINT + '/' + playlistId, {headers: headers})
+    return response.data as PlaylistItem
 }
 
 export async function getAllTracksInPlaylist(playlistId: string, bearerToken: string) {

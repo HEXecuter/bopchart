@@ -10,19 +10,18 @@ ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend, autocolors, Ch
 ChartJS.defaults.font.size = 32
 
 interface GenreChartsProps {
-
+    playlistId: string
 }
 
-const GenreCharts: React.FC<GenreChartsProps> = () => {
+const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
     const [responseData, setResponseData] = useState<[{ playlist: { id: string, name: string }, genres: { genre: string, duration: number }[] }]>();
     useEffect(() => {
-        console.log('data is being fetched')
-        axios.get('/api/genres/artists')
+        axios.get('/api/genres/artists/' + playlistId)
             .then((response) => {
                 setResponseData(response.data)
             })
             .catch((error) => console.log(error))
-    }, [])
+    }, [playlistId])
 
     if (responseData) {
         return (
@@ -48,7 +47,7 @@ const GenreCharts: React.FC<GenreChartsProps> = () => {
                     }
                     return (
                         <div key={entry.playlist.id} className="bg-[rgba(255,255,255,0.6)] min-h-[900px] min-w-[900px]">
-                            <Doughnut data={data} options={options}/>
+                            <Doughnut data={data} options={options} />
                         </div>
                     )
                 })}
