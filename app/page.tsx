@@ -15,7 +15,7 @@ export default async function Home() {
     <main className='flex flex-col items-center justify-center min-h-[90vh]'>
       <div className='flex-col flex md:flex-row justify-center gap-8 '>
         <div className='flex flex-col gap-6 items-center justify-center'>
-          <Title text='Welcome to Chartify' />
+          <Title text='Welcome to BopChart' />
           <p className='text-lg text-center'>{welcomeText}</p>
           <SessionButton session={userSession} />
         </div>

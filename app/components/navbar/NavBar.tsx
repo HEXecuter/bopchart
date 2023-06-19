@@ -9,7 +9,7 @@ const NavBar: React.FC<NavBarProps> = () => {
         <nav className="w-full h-16 flex items-center justify-center bg-white bg-opacity-30">
             <div className="flex flex-row justify-between mx-8 w-full">
                 <Link className="text-center text-3xl font-semibold uppercase cursor-pointer" href="/">
-                    Chartify
+                    BopChart
                 </Link>
                 <div className="flex items-center justify-center gap-6">
                     {/* <Link href="/" className="hover:underline">

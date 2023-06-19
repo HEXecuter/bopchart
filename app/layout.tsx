@@ -5,7 +5,7 @@ import { Playfair_Display } from 'next/font/google'
 const playfair = Playfair_Display({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Chartify',
+  title: 'BopChart',
   description: 'Webapp for viewing your spotify statistics',
 }
 
