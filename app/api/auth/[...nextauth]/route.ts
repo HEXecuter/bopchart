@@ -18,8 +18,8 @@ export const authOptions: AuthOptions = {
             return token
         },
         async session({ session, user, token }) {
-            session.user.refreshToken = token.refreshToken;
-            session.user.id = token.sub;
+            session.user!.refreshToken = token.refreshToken;
+            session.user!.id = token.sub;
             return session;
         }
     },
