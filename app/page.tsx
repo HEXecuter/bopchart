@@ -13,14 +13,14 @@ export default async function Home() {
   const welcomeText = userSession ? 'Select an option to learn more about your spotify usage!' : 'Log in to learn more about your spotify usage!';
   return (
     <main className='flex flex-col items-center justify-center min-h-[90vh]'>
-      <div className='flex-col flex md:flex-row justify-center gap-8 '>
+      <div className='flex-col flex md:flex-row justify-center gap-8 bg-gray-900 p-4 lg:p-8 rounded-xl m-6'>
         <div className='flex flex-col gap-6 items-center justify-center'>
           <Title text='Welcome to BopChart' />
           <p className='text-lg text-center'>{welcomeText}</p>
           <SessionButton session={userSession} />
         </div>
         <div className={
-          `grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-row justify-items-center gap-6 h-fit
+          `grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-row justify-items-center gap-8 h-fit
           ${userSession ? '' : 'pointer-events-none'}`
         }>
           <OptionCard href='/genres' implemented icon={BiCategoryAlt} name="What genres do I listen to?" />

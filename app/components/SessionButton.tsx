@@ -16,7 +16,7 @@ const SessionButton: React.FC<SessionButtonProps> = ({ session }) => {
                 className="rounded-xl bg-red-500 flex justify-center py-4 gap-6 w-full"
             >
                 <BiLogOut size={32} className="text-white"/>
-                <span className="text-xl text-white">{`Log out from ${session.user?.name}`}</span>
+                <span className="lg:text-xl text-white">{`Log out from ${session.user?.name}`}</span>
             </button>
         )
     } else {
@@ -25,7 +25,7 @@ const SessionButton: React.FC<SessionButtonProps> = ({ session }) => {
                 className="rounded-xl bg-green-500 flex justify-center py-4 gap-6 w-full"
             >
                 <BsSpotify size={32} className="text-white"/>
-                <span className="text-xl text-white">Log in with Spotify</span>
+                <span className="lg:text-xl text-white">Log in with Spotify</span>
             </button>
         )
     }
