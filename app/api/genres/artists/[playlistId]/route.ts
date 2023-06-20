@@ -1,8 +1,6 @@
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server';
 import { getAccessToken, getAllTracksInPlaylist, getBulkAlbums, getBulkArtist, getCurrentUserPlaylist, getPlaylist, getUniqueAlbumsFromTracks, getUniqueArtistsFromTracks } from '@/app/lib/spotify';
-import { useSession } from 'next-auth/react';
-import { generateKeySync } from 'crypto';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 type PlaylistKey = { id: string, name: string }

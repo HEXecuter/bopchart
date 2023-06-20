@@ -136,3 +136,8 @@ export async function getBulkArtist(artistList: string[], bearerToken: string) {
 
     return artists;
 }
+
+function getSpotifyImage(playlist: PlaylistItem) {
+    
+
+}
