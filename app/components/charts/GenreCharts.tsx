@@ -14,7 +14,7 @@ ChartJS.register(ArcElement, DoughnutController, Tooltip, Legend, Colors, ChartD
 ChartJS.defaults.color = '#FFF'
 ChartJS.defaults.font.family = playfair.className;
 ChartJS.defaults.responsive = true;
-ChartJS.defaults.aspectRatio = 2;
+ChartJS.defaults.aspectRatio = 1;
 ChartJS.defaults.maintainAspectRatio = false;
 
 interface GenreChartsProps {
@@ -48,7 +48,7 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
                                 display: true,
                                 text: entry.playlist.name,
                                 font: {
-                                    size: 32
+                                    size: 24
                                 }
                             },
                             autocolors: {
@@ -57,14 +57,14 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
                             legend: {
                                 labels: {
                                     font: {
-                                        size: 24
+                                        size: 16
                                     }
                                 }
                             }
                         }
                     }
                     return (
-                        <div key={entry.playlist.id} className="relative min-h-[800px] min-w-[400px] md:min-h-[900px] md:min-w-[900px]">
+                        <div key={entry.playlist.id} className="relative w-[90%] max-w-[900px] min-h-[500px] h-[80vh] bg-gray-900 rounded-xl m-2 p-4">
                             <Doughnut data={data} options={options} />
                         </div>
                     )
