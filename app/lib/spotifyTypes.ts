@@ -40,7 +40,7 @@ type Track = {
     track: boolean,
     track_number: number,
     type: "track"
-}
+} | null
 
 
 type FullAlbum = Album & {

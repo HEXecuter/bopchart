@@ -76,6 +76,7 @@ export async function getAllTracksInPlaylist(playlistId: string, bearerToken: st
 export function getUniqueAlbumsFromTracks(trackList: PlaylistTrackItem[]): string[] {
     const albumIds = new Set<string>();
     for (const track of trackList) {
+        if(!track.track) continue;
         albumIds.add(track.track.album.id)
     }
 
@@ -86,6 +87,8 @@ export function getUniqueArtistsFromTracks(trackMap: Map<any, PlaylistTrackItem[
     const artistIds = new Set<string>();
     trackMap.forEach((value, key) => {
         value.forEach((track) => {
+            if(!track.track) return;
+
             track.track.artists.forEach((artist) => {
                 artistIds.add(artist.id)
             })

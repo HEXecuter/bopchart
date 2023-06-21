@@ -33,6 +33,7 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
     playlistMap.forEach((playlistTrackList, playlistKey) => {
         const genreMap = new Map<string, number>()
         for (const playlistTrack of playlistTrackList) {
+            if (!playlistTrack.track) continue;
             for (const artistObj of playlistTrack.track.artists) {
                 let artist = artists.get(artistObj.id)
                 let genre_list
