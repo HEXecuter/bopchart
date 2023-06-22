@@ -31,6 +31,7 @@ const PlaylistSelector: React.FC<PlaylistSelectorProps> = async ({ userSession, 
                             ">
                                 <h2 className="text-base lg:text-3xl font-normal">{playlistItem.name || "Unnamed"}</h2>
                                 <p className="text-gray-300 text-sm lg:text-xl">{playlistItem.owner.display_name || "Unknown"}</p>
+                                {/* Spotify artwork must be attributed with icon and link */}
                                 <a href={playlistItem.external_urls.spotify} target="_blank" className="flex gap-2 items-end underline">
                                     <BsSpotify size={25} className="" />
                                     <p className="text-sm lg:text-base">Play on Spotify</p>

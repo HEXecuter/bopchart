@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import axios from "axios";
 
 const BASIC_TOKEN = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
@@ -23,7 +22,7 @@ export async function getAccessToken(accessToken: string) {
     const response = await axios.post(TOKEN_ENDPOINT, data, { headers: headers })
 
     if (response.status === 200) {
-        return response.data.access_token;
+        return response.data.access_token as string;
     } else {
         return null;
     }

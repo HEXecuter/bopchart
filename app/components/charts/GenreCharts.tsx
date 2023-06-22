@@ -1,6 +1,5 @@
 'use client'
 import { Doughnut } from "react-chartjs-2";
-// import autocolors from 'chartjs-plugin-autocolors'
 import ChartDeferred from 'chartjs-plugin-deferred';
 import { Chart as ChartJS, ArcElement, DoughnutController, Tooltip, Legend, Title, Colors } from 'chart.js'
 import axios from "axios";
@@ -21,8 +20,15 @@ interface GenreChartsProps {
     playlistId: string
 }
 
+interface ArtistGenreResponse {
+    playlist: { id: string, name: string },
+    genres: { genre: string, duration: number }[]
+}
+
 const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
-    const [responseData, setResponseData] = useState<[{ playlist: { id: string, name: string }, genres: { genre: string, duration: number }[] }]>();
+    const [responseData, setResponseData] = useState<ArtistGenreResponse[]>();
+
+    //TODO: On error, reroute user to pick a playlist. Display toast notification that playlist is invalid
     useEffect(() => {
         axios.get('/api/genres/artists/' + playlistId)
             .then((response) => {
@@ -74,7 +80,7 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
     } else {
         return (
             <div className="flex justify-center items-center gap-4 mt-32">
-                <ScaleLoader height={200} width={8} margin={16} color="white"/>
+                <ScaleLoader height={200} width={8} margin={16} color="white" />
             </div>
         )
     }
