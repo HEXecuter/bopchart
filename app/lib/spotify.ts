@@ -20,12 +20,8 @@ export async function getAccessToken(accessToken: string) {
     }
 
     const response = await axios.post(TOKEN_ENDPOINT, data, { headers: headers })
-
-    if (response.status === 200) {
-        return response.data.access_token as string;
-    } else {
-        return null;
-    }
+    
+    return response.data.access_token as string;
 }
 
 export async function getCurrentUserPlaylist(bearerToken: string) {
