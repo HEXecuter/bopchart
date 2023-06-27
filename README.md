@@ -4,15 +4,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 **This application is currently in development mode, pending review by Spotify. <u>Spotify limits OAuth sign ins to 25 allowlisted accounts.</u> Request access to this application by emailing eatesting23@gmail.com. Include the email address associated with your Spotify account.**
 
-![landing](.\demo\landing.png)
+![landing](./demo/landing.png)
 
 ## Features
 
 BopChart allows you to select a playlist and see the top 10 genres in that playlist. The top 10 genres are determined by summing the duration of each song belonging to that genre. Each song may contain multiple genres. Spotify makes genre information available at the artist level. Playlist containing only one artist, may only have a handful of genres listed.
 
-![playlist](.\demo\playlist.png)
+![playlist](./demo/playlist.png)
 
-![genres](.\demo\genres.png)
+![genres](./demo/genres.png)
 
 ## Roadmap
 
