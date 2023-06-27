@@ -1,6 +1,6 @@
 # BopChart - Spotify Usage Statistics
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). Built using React, Tailwind CSS, and ChartJS. This application utilizes Spotify's Web API and authorizes the user using the [OAuth Authorization Code Flow](https://developer.spotify.com/documentation/web-api/tutorials/code-flow).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). Built using React, Tailwind CSS, and ChartJS. This application utilizes Spotify's Web API and authorizes the user using the [OAuth Authorization Code Flow](https://developer.spotify.com/documentation/web-api/tutorials/code-flow). Try BopChart -> https://www.bopchart.com/
 
 **This application is currently in development mode, pending review by Spotify. <u>Spotify limits OAuth sign ins to 25 allowlisted accounts.</u> Request access to this application by emailing eatesting23@gmail.com. Include the email address associated with your Spotify account.**
 
