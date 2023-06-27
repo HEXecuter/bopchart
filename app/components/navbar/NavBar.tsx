@@ -18,7 +18,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                     <Link href="/" className="cursor-not-allowed hover:underline">
                         About
                     </Link>
-                    <a href="https://github.com/HEXecuter" target="_blank" className="hover:underline">
+                    <a href="https://github.com/HEXecuter/bopchart" target="_blank" className="hover:underline">
                         GitHub
                     </a>
                 </div>
