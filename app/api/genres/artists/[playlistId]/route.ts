@@ -4,6 +4,7 @@ import { getAccessToken, getAllTracksInPlaylist, getBulkAlbums, getBulkArtist, g
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 type PlaylistKey = { id: string, name: string }
+type GenreEntry = { genre: string, duration: number }
 
 export async function GET(request: Request, { params }: { params: { playlistId: string } }) {
     const userSession = await getServerSession(authOptions);
@@ -14,22 +15,18 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
 
     const accessToken = await getAccessToken(userSession.user!.refreshToken)
 
-    let playlist_list = [await getPlaylist(params.playlistId, accessToken)]
-
+    let playlist = await getPlaylist(params.playlistId, accessToken)
     const playlistMap = new Map<PlaylistKey, PlaylistTrackItem[]>();
 
+    const tracksList: PlaylistTrackItem[] = [];
+    tracksList.push(...(await getAllTracksInPlaylist(playlist.id, accessToken)))
+    playlistMap.set({ id: playlist.id, name: playlist.name }, tracksList)
 
-    for (const playlist of playlist_list) {
-        const tracksList: PlaylistTrackItem[] = [];
-        tracksList.push(...(await getAllTracksInPlaylist(playlist.id, accessToken)))
-        playlistMap.set({ id: playlist.id, name: playlist.name }, tracksList)
-    }
-
-    // Fetch all unique albums ahead of time in bulk, to avoid rate limits
-    const uniqueArtist = getUniqueArtistsFromTracks(playlistMap); // <-
+    // Fetch all unique artist ahead of time in bulk, and perform searches against this map to avoid rate limits
+    const uniqueArtist = getUniqueArtistsFromTracks(playlistMap);
     const artists = await getBulkArtist(uniqueArtist, accessToken);
 
-    const returnData: { playlist: PlaylistKey, genres: { genre: string, duration: number }[] }[] = [];
+    const returnData: { playlist: PlaylistKey, genres: GenreEntry[] }[] = [];
     playlistMap.forEach((playlistTrackList, playlistKey) => {
         const genreMap = new Map<string, number>()
         for (const playlistTrack of playlistTrackList) {
