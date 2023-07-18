@@ -5,7 +5,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 
 type PlaylistKey = { id: string, name: string }
-type PopularityEntry = { count: number, popularity: number }
+type PopularityEntry = { song_popularity: number, artist_popularity: number, duration: number }
 
 export async function GET(request: Request, { params }: { params: { playlistId: string } }) {
     const userSession = await getServerSession(authOptions);
@@ -20,17 +20,22 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
     const tracksList: PlaylistTrackItem[] = [];
     tracksList.push(...(await getAllTracksInPlaylist(playlist.id, accessToken)));
 
-    const trackPopularityMap = new Map<number, number>();
+    const uniqueArtist = getUniqueArtistsFromTracks(tracksList);
+    const artists = await getBulkArtist(uniqueArtist, accessToken);
 
-    tracksList.forEach((playlistItem) => {
-        if (!playlistItem.track) {
-            return;
-        }
-        const popularity = playlistItem.track.popularity;
-        if (trackPopularityMap.has(popularity)) {
-            trackPopularityMap.set(popularity, trackPopularityMap.get(popularity)! + 1);
-        } else {
-            trackPopularityMap.set(popularity, 1);
+    const popularityData: PopularityEntry[] = []
+
+    let popularitySum = 0
+
+    tracksList.forEach((item) => {
+        if (item.track) {
+            popularityData.push({
+                song_popularity: item.track!.popularity,
+                artist_popularity: artists.get(item.track!.artists[0].id)!.popularity,
+                duration: Math.floor(item.track!.duration_ms / 1000)
+            })
+
+            popularitySum += item.track.popularity
         }
     })
 
@@ -39,21 +44,10 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
             id: playlist.id,
             name: playlist.name
         },
-        averagePopularity: 0,
-        popularityData: []
+        // Use popularityData.length instead of tracksList.length because entries without a track property are filtered out
+        averagePopularity: Math.round(popularitySum / popularityData.length),
+        popularityData
     };
 
-    let runningSum = 0
-    let runningCount = 0
-
-    trackPopularityMap.forEach((popularityCount, popularity) => {
-        runningSum += popularity
-        // Use this instead of tracksList.length, because we filtered out items without track property
-        runningCount += popularityCount
-        returnData.popularityData.push({count: popularityCount, popularity: popularity})
-    })
-
-    returnData.averagePopularity = Math.round(runningSum / runningCount);
-    
     return NextResponse.json(returnData)
 }

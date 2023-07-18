@@ -1,7 +1,7 @@
 'use client'
-import { Scatter } from "react-chartjs-2";
+import { Bubble } from "react-chartjs-2";
 import ChartDeferred from 'chartjs-plugin-deferred';
-import { Chart as ChartJS, ScatterController, PointElement, LinearScale, Tooltip, Legend, Title, Colors } from 'chart.js'
+import { Chart as ChartJS, BarController, CategoryScale, PointElement, LinearScale, Tooltip, Legend, Title, Colors, ChartOptions } from 'chart.js'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
@@ -9,7 +9,7 @@ import { Playfair_Display } from 'next/font/google'
 
 const playfair = Playfair_Display({ subsets: ['latin'] })
 
-ChartJS.register(ScatterController, PointElement, LinearScale, Tooltip, Legend, Colors, ChartDeferred, Title)
+ChartJS.register(BarController, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Colors, ChartDeferred, Title)
 ChartJS.defaults.color = '#FFF'
 ChartJS.defaults.font.family = playfair.className;
 ChartJS.defaults.responsive = true;
@@ -23,7 +23,7 @@ interface BasicnessScatterChartProps {
 interface BasicnessResponse {
     playlist: { id: string, name: string },
     averagePopularity: number,
-    popularityData: {count: number, popularity: number}[]
+    popularityData: { song_popularity: number, artist_popularity: number, duration: number }[]
 }
 
 const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistId }) => {
@@ -42,27 +42,55 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
         const data = {
             datasets: [
                 {
-                    label: 'Song Dataset',
-                    data: responseData.popularityData.map((entry) => ({x: entry.popularity, y: entry.count})),
+                    label: 'Song Duration',
+                    data: responseData.popularityData.map((entry) => ({
+                        x: entry.song_popularity,
+                        y: entry.artist_popularity,
+                        r: Math.round(entry.duration / 25)
+                    })),
+                    radius: 6
                 }
             ]
         }
 
-        const options = {
+        const options: ChartOptions = {
             scales: {
-                x: { text: "Basicness"},
-                y: { text: "Count"},
+                x: {
+                    grid: {
+                        color: 'gray',
+                        tickColor: 'white',
+
+                    },
+                    title: {
+                        display: true,
+                        font: {
+                            size: 20
+                        },
+                        text: "Song Popularity"
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'gray',
+                        tickColor: 'white',
+
+                    },
+                    title: {
+                        display: true,
+                        font: {
+                            size: 20
+                        },
+                        text: "Artist Popularity"
+                    }
+                }
             },
             plugins: {
                 title: {
                     display: true,
                     text: `${responseData.playlist.name} Basicness`,
                     font: {
-                        size: 24
+                        size: 28
                     }
-                },
-                autocolors: {
-                    mode: 'data'
                 },
                 legend: {
                     labels: {
@@ -77,7 +105,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
         return (
             <div className="flex flex-wrap justify-center items-center gap-4 my-16">
                 <div className="relative w-[90%] max-w-[900px] min-h-[500px] h-[80vh] bg-gray-900 rounded-xl m-2 p-4">
-                    <Scatter data={data} options={options} />
+                    <Bubble data={data} options={options} />
                 </div>
             </div>
         )

@@ -78,17 +78,24 @@ export function getUniqueAlbumsFromTracks(trackList: PlaylistTrackItem[]): strin
     return [...albumIds];
 }
 
-export function getUniqueArtistsFromTracks(trackMap: Map<any, PlaylistTrackItem[]>): string[] {
+export function getUniqueArtistsFromTracks(trackCollection: Map<any, PlaylistTrackItem[]> | PlaylistTrackItem[]): string[] {
     const artistIds = new Set<string>();
-    trackMap.forEach((value, key) => {
-        value.forEach((track) => {
-            if(!track.track) return;
 
-            track.track.artists.forEach((artist) => {
-                artistIds.add(artist.id)
-            })
+    const unpacker = (track: PlaylistTrackItem) => {
+        if (!track.track) return;
+
+        track.track.artists.forEach((artist) => {
+            artistIds.add(artist.id)
         })
-    })
+    }
+
+    if (Array.isArray(trackCollection)) {
+        trackCollection.forEach(unpacker)
+    } else {
+        trackCollection.forEach((value, key) => {
+            value.forEach(unpacker)
+        })
+    }
 
     return [...artistIds];
 }
