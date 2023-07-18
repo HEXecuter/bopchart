@@ -39,7 +39,7 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
 
     if (responseData) {
         return (
-            <div className="flex flex-wrap justify-center items-center gap-4 my-16">
+            <div className="flex flex-wrap justify-center items-center gap-4 my-8 lg:my-16">
                 {responseData.map((entry, index) => {
                     const data = {
                         datasets: [{

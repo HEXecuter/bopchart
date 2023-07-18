@@ -155,7 +155,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
         }
 
         return (
-            <div className="flex flex-col justify-center items-center gap-0 my-16">
+            <div className="flex flex-col justify-center items-center gap-0 my-8 lg:my-16">
                 <div className="relative w-[90%] max-w-[900px] min-h-[400px] h-[70vh] rounded-t-xl bg-gray-900 mx-2 p-4">
                     <Bubble data={scatterData} options={scatterOptions} />
                 </div>
