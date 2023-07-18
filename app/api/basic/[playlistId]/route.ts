@@ -29,9 +29,12 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
 
     tracksList.forEach((item) => {
         if (item.track) {
+            const firstArtist = artists.get(item.track!.artists[0].id)
+            if (!firstArtist) return;
+
             popularityData.push({
-                song_popularity: item.track!.popularity,
-                artist_popularity: artists.get(item.track!.artists[0].id)!.popularity,
+                song_popularity: item.track.popularity,
+                artist_popularity: firstArtist.popularity,
                 duration: Math.floor(item.track!.duration_ms / 1000)
             })
 
