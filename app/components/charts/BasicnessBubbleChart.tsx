@@ -39,7 +39,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
     }, [playlistId])
 
     if (responseData) {
-        const data = {
+        const scatterData = {
             datasets: [
                 {
                     label: 'Song Duration',
@@ -53,9 +53,12 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
             ]
         }
 
-        const options: ChartOptions = {
+        const scatterOptions: ChartOptions = {
+            clip: 20,
             scales: {
                 x: {
+                    min: 0,
+                    max: 100,
                     grid: {
                         color: 'gray',
                         tickColor: 'white',
@@ -70,6 +73,8 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     }
                 },
                 y: {
+                    min: 0,
+                    max: 100,
                     grid: {
                         color: 'gray',
                         tickColor: 'white',
@@ -105,7 +110,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
         return (
             <div className="flex flex-wrap justify-center items-center gap-4 my-16">
                 <div className="relative w-[90%] max-w-[900px] min-h-[500px] h-[80vh] bg-gray-900 rounded-xl m-2 p-4">
-                    <Bubble data={data} options={options} />
+                    <Bubble data={scatterData} options={scatterOptions} />
                 </div>
             </div>
         )
