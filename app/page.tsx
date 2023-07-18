@@ -24,7 +24,7 @@ export default async function Home() {
           ${userSession ? '' : 'pointer-events-none'}`
         }>
           <OptionCard href='/genres' implemented icon={BiCategoryAlt} name="What genres do I listen to?" />
-          <OptionCard href='/basicness' icon={BiMedal} name="How basic is my music taste?" />
+          <OptionCard href='/basicness' implemented icon={BiMedal} name="How basic is my music taste?" />
           <OptionCard href='/top' icon={BiListOl} name="What are my top items?" />
           <OptionCard href='/dance' icon={BiMusic} name="Danceability of my playlist" />
           <OptionCard href='/tempo' icon={IoMdSpeedometer} name="Analyze the tempo of my playlist" />
