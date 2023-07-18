@@ -3,7 +3,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Title from "../components/Title";
 import PlaylistSelector from "../components/PlaylistSelector";
-import BasicnessScatterChart from "../components/charts/BasicnessScatterChart";
+import BasicnessScatterChart from "../components/charts/BasicnessBubbleChart";
 
 
 export default async function GenrePage({ searchParams }: { searchParams: { [key: string]: string } }) {
