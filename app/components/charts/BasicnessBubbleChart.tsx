@@ -1,7 +1,7 @@
 'use client'
-import { Bubble } from "react-chartjs-2";
+import { Bubble, Bar } from "react-chartjs-2";
 import ChartDeferred from 'chartjs-plugin-deferred';
-import { Chart as ChartJS, BarController, CategoryScale, PointElement, LinearScale, Tooltip, Legend, Title, Colors, ChartOptions } from 'chart.js'
+import { Chart as ChartJS, BarController, BubbleController, BarElement, CategoryScale, PointElement, LinearScale, Tooltip, Legend, Title, Colors, ChartOptions } from 'chart.js'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
@@ -9,7 +9,7 @@ import { Playfair_Display } from 'next/font/google'
 
 const playfair = Playfair_Display({ subsets: ['latin'] })
 
-ChartJS.register(BarController, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Colors, ChartDeferred, Title)
+ChartJS.register(BarController, BubbleController, BarElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Colors, ChartDeferred, Title)
 ChartJS.defaults.color = '#FFF'
 ChartJS.defaults.font.family = playfair.className;
 ChartJS.defaults.responsive = true;
@@ -67,7 +67,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     title: {
                         display: true,
                         font: {
-                            size: 20
+                            size: 16
                         },
                         text: "Song Popularity"
                     }
@@ -83,7 +83,7 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     title: {
                         display: true,
                         font: {
-                            size: 20
+                            size: 16
                         },
                         text: "Artist Popularity"
                     }
@@ -94,13 +94,60 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     display: true,
                     text: `${responseData.playlist.name} Basicness`,
                     font: {
-                        size: 28
+                        size: 24
                     }
                 },
                 legend: {
                     labels: {
                         font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+
+        const barData = {
+            labels: ['Avg'],
+            datasets: [{
+                axis: 'x',
+                label: 'Percentage',
+                data: [responseData.averagePopularity],
+            }]
+        }
+
+        const barOptions: ChartOptions = {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    min: 0,
+                    max: 100,
+                    grid: {
+                        color: 'gray',
+                        tickColor: 'white',
+
+                    },
+                    title: {
+                        display: true,
+                        font: {
                             size: 16
+                        },
+                        text: "Basicness"
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: `${responseData.playlist.name} Playlist Average`,
+                    font: {
+                        size: 24
+                    }
+                },
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14
                         }
                     }
                 }
@@ -108,9 +155,12 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
         }
 
         return (
-            <div className="flex flex-wrap justify-center items-center gap-4 my-16">
-                <div className="relative w-[90%] max-w-[900px] min-h-[500px] h-[80vh] bg-gray-900 rounded-xl m-2 p-4">
+            <div className="flex flex-col justify-center items-center gap-0 my-16">
+                <div className="relative w-[90%] max-w-[900px] min-h-[400px] h-[70vh] rounded-t-xl bg-gray-900 mx-2 p-4">
                     <Bubble data={scatterData} options={scatterOptions} />
+                </div>
+                <div className="relative w-[90%] max-w-[900px] min-h-[250px] h-[15vh] rounded-b-xl bg-gray-900 mx-2 p-4 border-t-2 border-gray-400">
+                    <Bar data={barData}  options={barOptions}/>
                 </div>
             </div>
         )
