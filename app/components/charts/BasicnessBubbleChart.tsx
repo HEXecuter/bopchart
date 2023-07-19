@@ -23,7 +23,7 @@ interface BasicnessScatterChartProps {
 interface BasicnessResponse {
     playlist: { id: string, name: string },
     averagePopularity: number,
-    popularityData: { song_popularity: number, artist_popularity: number, duration: number }[]
+    popularityData: { song_popularity: number, artist_popularity: number, duration: number, name: string}[]
 }
 
 const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistId }) => {
@@ -46,7 +46,8 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     data: responseData.popularityData.map((entry) => ({
                         x: entry.song_popularity,
                         y: entry.artist_popularity,
-                        r: Math.round(entry.duration / 25)
+                        r: Math.round(entry.duration / 25),
+                        name: entry.name
                     })),
                     radius: 6
                 }
@@ -101,6 +102,13 @@ const BasicnessScatterChart: React.FC<BasicnessScatterChartProps> = ({ playlistI
                     labels: {
                         font: {
                             size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (tooltipItem) => {
+                            return tooltipItem.raw.name;
                         }
                     }
                 }

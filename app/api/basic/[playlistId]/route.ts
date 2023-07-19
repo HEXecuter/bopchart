@@ -5,7 +5,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 
 type PlaylistKey = { id: string, name: string }
-type PopularityEntry = { song_popularity: number, artist_popularity: number, duration: number }
+type PopularityEntry = { song_popularity: number, artist_popularity: number, duration: number, name: string }
 
 export async function GET(request: Request, { params }: { params: { playlistId: string } }) {
     const userSession = await getServerSession(authOptions);
@@ -35,7 +35,8 @@ export async function GET(request: Request, { params }: { params: { playlistId: 
             popularityData.push({
                 song_popularity: item.track.popularity,
                 artist_popularity: firstArtist.popularity,
-                duration: Math.floor(item.track!.duration_ms / 1000)
+                duration: Math.floor(item.track!.duration_ms / 1000),
+                name: item.track.name
             })
 
             popularitySum += item.track.popularity
