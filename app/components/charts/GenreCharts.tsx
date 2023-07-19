@@ -66,6 +66,13 @@ const GenreCharts: React.FC<GenreChartsProps> = ({ playlistId }) => {
                                         size: 16
                                     }
                                 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (tooltipItem) => {
+                                        return `${Math.round(tooltipItem.raw / 60)} minutes`;
+                                    }
+                                }
                             }
                         }
                     }
